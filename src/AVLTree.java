@@ -51,7 +51,24 @@ public class AvlTree<AnyType extends Comparable<? super AnyType>> {
      * @return the new root of the subtree.
      */
     private AvlNode<AnyType> remove( AnyType x, AvlNode<AnyType> t ) {
-	// FINISH ME
+        if (t == null) return t; // item found; do nothing
+
+        int compareResult = x.compareTo(t.element);
+
+        if (compareResult < 0) {
+            t.left = remove(x, t.left);
+        } else if (compareResult > 0) {
+            t.right = remove(x, t.right);
+        } else if (t.left != null && t.right != null) {
+            // node with two children — replace with smallest in right subtree
+            t.element = findMin(t.right).element;
+            t.right = remove(t.element, t.right);
+        } else {
+            // node with one or no child
+            t = (t.left != null) ? t.left : t.right;
+        }
+
+        return balance(t); // ensure tree remains balanced
     }
 
     /**
