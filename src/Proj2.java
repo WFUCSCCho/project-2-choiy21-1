@@ -28,11 +28,27 @@ public class Proj2 {
         inputFileNameScanner.nextLine();
 
         // store dataset in an ArrayList
-        ArrayList<Integer> dataList = new ArrayList<>();
+        ArrayList<Chocolate> chocolates = new ArrayList<>();
 
         // read up to specified number of lines
-        while (inputFileNameScanner.hasNextLine() && dataList.size() < numLines) {
-            dataList.add(Integer.parseInt(inputFileNameScanner.nextLine().trim()));
+        while (inputFileNameScanner.hasNextLine() && chocolates.size() < numLines) {
+            String line = inputFileNameScanner.nextLine();
+            String[] fields = line.split(",");
+
+            // parse fields and create object
+            String company = fields[0];
+            String origin = fields[1];
+            int ref = Integer.parseInt(fields[2]);
+            int reviewDate = Integer.parseInt(fields[3]);
+            double cocoaPercent = Double.parseDouble(fields[4].replace("%", ""));
+            String location = fields[5];
+            double rating = Double.parseDouble(fields[6]);
+            String beanType = fields[7];
+            String broadBeanOrigin = fields[8];
+
+            Chocolate chocolate = new Chocolate(company, origin, ref, reviewDate, cocoaPercent, location, rating,
+                    beanType, broadBeanOrigin);
+            chocolates.add(chocolate);
         }
 
         // close input streams
@@ -40,18 +56,18 @@ public class Proj2 {
         inputFileNameStream.close();
 
         // create copies of data for sorted and shuffled versions
-        ArrayList<Integer> sortedData = new ArrayList<>(dataList);
-        ArrayList<Integer> shuffledData = new ArrayList<>(dataList);
+        ArrayList<Chocolate> sortedData = new ArrayList<>(chocolates);
+        ArrayList<Chocolate> shuffledData = new ArrayList<>(chocolates);
 
         // sort and shuffle data
         Collections.sort(sortedData);
         Collections.shuffle(shuffledData);
 
         // create BST and AVL trees
-        BST<Integer> bstSorted = new BST<>();
-        BST<Integer> bstShuffled = new BST<>();
-        AvlTree<Integer> avlSorted = new AvlTree<>();
-        AvlTree<Integer> avlShuffled = new AvlTree<>();
+        BST<Chocolate> bstSorted = new BST<>();
+        BST<Chocolate> bstShuffled = new BST<>();
+        AvlTree<Chocolate> avlSorted = new AvlTree<>();
+        AvlTree<Chocolate> avlShuffled = new AvlTree<>();
 
         // measure insertion times
         long bstSortedInsertTime = measureInsertionTime(bstSorted, sortedData);
@@ -60,8 +76,8 @@ public class Proj2 {
         long avlShuffledInsertTime = measureInsertionTime(avlShuffled, shuffledData);
 
         // measure search times
-        long bstSearchTime = measureSearchTime(bstSorted, dataList);
-        long avlSearchTime = measureSearchTime(avlSorted, dataList);
+        long bstSearchTime = measureSearchTime(bstSorted, chocolates);
+        long avlSearchTime = measureSearchTime(avlSorted, chocolates);
 
         // print results to console
         System.out.printf("BST Insert (Sorted): %d ns%n", bstSortedInsertTime);
