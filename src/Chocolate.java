@@ -6,8 +6,6 @@ public class Chocolate implements Comparable<Chocolate> {
     private double cocoaPercent;
     private String location;
     private double rating;
-    private String beanType;
-    private String broadBeanOrigin;
 
     // default constructor
     public Chocolate() {
@@ -18,15 +16,11 @@ public class Chocolate implements Comparable<Chocolate> {
         cocoaPercent = 0.0;
         location = "";
         rating = 0.0;
-        beanType = "";
-        broadBeanOrigin = "";
-
-
     }
 
     // parameterised constructor
     public Chocolate(String company, String origin, int ref, int reviewDate, double cocoaPercent, String location,
-                     double rating, String beanType, String broadBeanOrigin) {
+                     double rating) {
         this.company = company;
         this.origin = origin;
         this.ref = ref;
@@ -34,8 +28,6 @@ public class Chocolate implements Comparable<Chocolate> {
         this.cocoaPercent = cocoaPercent;
         this.location = location;
         this.rating = rating;
-        this.beanType = beanType;
-        this.broadBeanOrigin = broadBeanOrigin;
     }
 
     @Override
@@ -46,8 +38,8 @@ public class Chocolate implements Comparable<Chocolate> {
     @Override
     public String toString() {
         return String.format("Company: %s, Origin: %s, REF: %d, Review Date: %d, Cocoa Percent: %.2f%%, " +
-                "Location: %s, Rating: %.2f, Bean Type: %s, Broad Bean Origin: %s",
-                company, origin, ref, reviewDate, cocoaPercent, location, rating, beanType, broadBeanOrigin);
+                "Location: %s, Rating: %.2f",
+                company, origin, ref, reviewDate, cocoaPercent, location, rating);
     }
 
     // getters
@@ -58,6 +50,4 @@ public class Chocolate implements Comparable<Chocolate> {
     public double getCocoaPercent() { return cocoaPercent; }
     public String getLocation() { return location; }
     public double getRating() { return rating; }
-    public String getBeanType() { return beanType; }
-    public String getBroadBeanOrigin() { return broadBeanOrigin; }
 }

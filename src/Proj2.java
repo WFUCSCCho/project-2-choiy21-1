@@ -33,21 +33,18 @@ public class Proj2 {
         // read up to specified number of lines
         while (inputFileNameScanner.hasNextLine() && chocolates.size() < numLines) {
             String line = inputFileNameScanner.nextLine();
-            String[] fields = line.split(",");
+            String[] fields = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1); // Handle commas within quotes
 
-            // parse fields and create object
-            String company = fields[0];
-            String origin = fields[1];
-            int ref = Integer.parseInt(fields[2]);
-            int reviewDate = Integer.parseInt(fields[3]);
-            double cocoaPercent = Double.parseDouble(fields[4].replace("%", ""));
-            String location = fields[5];
-            double rating = Double.parseDouble(fields[6]);
-            String beanType = fields[7];
-            String broadBeanOrigin = fields[8];
+            // Parse the fields safely
+            String company = fields[0].trim();
+            String origin = fields[1].trim();
+            int ref = Integer.parseInt(fields[2].trim());
+            int reviewDate = Integer.parseInt(fields[3].trim());
+            double cocoaPercent = Double.parseDouble(fields[4].replace("%", "").trim());
+            String location = fields[5].trim();
+            double rating = Double.parseDouble(fields[6].trim());
 
-            Chocolate chocolate = new Chocolate(company, origin, ref, reviewDate, cocoaPercent, location, rating,
-                    beanType, broadBeanOrigin);
+            Chocolate chocolate = new Chocolate(company, origin, ref, reviewDate, cocoaPercent, location, rating);
             chocolates.add(chocolate);
         }
 
