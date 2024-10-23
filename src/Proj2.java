@@ -1,6 +1,7 @@
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Collections;
@@ -17,12 +18,8 @@ public class Proj2 {
         int numLines = Integer.parseInt(args[1]);
 
         // For file input
-        FileInputStream inputFileNameStream = null;
-        Scanner inputFileNameScanner = null;
-
-        // Open the input file
-        inputFileNameStream = new FileInputStream(inputFileName);
-        inputFileNameScanner = new Scanner(inputFileNameStream);
+        FileInputStream inputFileNameStream = new FileInputStream(inputFileName);
+        Scanner inputFileNameScanner = new Scanner(inputFileNameStream);
 
         // ignore first line
         inputFileNameScanner.nextLine();
